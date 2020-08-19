@@ -76,124 +76,133 @@ public class MainActivity extends AppCompatActivity {
         buttonClear.setOnClickListener(onClickListener);
 
     }
-
+    private void addMainNum(int num){
+        if(mainNumber.equals("0") || mainNumber.equals(""))
+            mainNumber = String.valueOf(num);
+        else
+            mainNumber += String.valueOf(num);
+    }
+    void updateMainNumber(){
+        textNumber.setText(mainNumber);
+    }
+    private void updateSubNumber(){
+        textSubNumber.setText(subNumber);
+    }
+    private void resetMainNumber(){
+        mainNumber = "0";
+        updateMainNumber();
+    }
+    private void resetSubNumber(){
+        subNumber = "";
+        updateSubNumber();
+    }
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
-            calculator calculator = new calculator();
-
+            Calculator calculator = new Calculator();
             switch (view.getId()) {
                 case R.id.button0:
-                    mainNumber += "0";
-                    textNumber.setText(mainNumber);
+                    addMainNum(0);
+                    updateMainNumber();
                     break;
                 case R.id.button1:
-                    mainNumber += "1";
-                    textNumber.setText(mainNumber);
+                    addMainNum(1);
+                    updateMainNumber();
                     break;
                 case R.id.button2:
-                    mainNumber += "2";
-                    textNumber.setText(mainNumber);
+                    addMainNum(2);
+                    updateMainNumber();
                     break;
                 case R.id.button3:
-                    mainNumber += "3";
-                    textNumber.setText(mainNumber);
+                    addMainNum(3);
+                    updateMainNumber();
                     break;
                 case R.id.button4:
-                    mainNumber += "4";
-                    textNumber.setText(mainNumber);
+                    addMainNum(4);
+                    updateMainNumber();
                     break;
                 case R.id.button5:
-                    mainNumber += "5";
-                    textNumber.setText(mainNumber);
+                    addMainNum(5);
+                    updateMainNumber();
                     break;
                 case R.id.button6:
-                    mainNumber += "6";
-                    textNumber.setText(mainNumber);
+                    addMainNum(6);
+                    updateMainNumber();
                     break;
                 case R.id.button7:
-                    mainNumber += "7";
-                    textNumber.setText(mainNumber);
+                    addMainNum(7);
+                    updateMainNumber();
                     break;
                 case R.id.button8:
-                    mainNumber += "8";
-                    textNumber.setText(mainNumber);
+                    addMainNum(8);
+                    updateMainNumber();
                     break;
                 case R.id.button9:
-                    mainNumber += "9";
-                    textNumber.setText(mainNumber);
+                    addMainNum(9);
+                    updateMainNumber();
                     break;
                 case R.id.button_plus:
                     subNumber = mainNumber;
+                    updateSubNumber();
+                    resetMainNumber();
                     Log.d("data2", "data: " + subNumber);
-                    mainNumber = "";
-                    textSubNumber.setText(subNumber);
-                    textNumber.setText("0");
                     checkCalculate = 0;
                     break;
                 case R.id.button_minus:
                     subNumber = mainNumber;
-                    mainNumber = "";
-                    textSubNumber.setText(subNumber);
-                    textNumber.setText("0");
+                    updateSubNumber();
+                    resetMainNumber();
                     checkCalculate = 1;
                     break;
                 case R.id.button_multiple:
                     subNumber = mainNumber;
-                    mainNumber = "";
-                    textSubNumber.setText(subNumber);
-                    textNumber.setText("0");
+                    updateSubNumber();
+                    resetMainNumber();
                     checkCalculate = 2;
                     break;
                 case R.id.button_div:
                     subNumber = mainNumber;
-                    mainNumber = "";
-                    textSubNumber.setText(subNumber);
-                    textNumber.setText("0");
+                    updateSubNumber();
+                    resetMainNumber();
                     checkCalculate = 3;
                     break;
                 case R.id.button_equals:
+                    int mainNum = Integer.parseInt(mainNumber);
+                    int subNum = Integer.parseInt(subNumber);
                     switch (checkCalculate){
                         case 0:
-                            mainNumber = String.valueOf(calculator.plus(Integer.parseInt(mainNumber), Integer.parseInt(subNumber)));
-                            textNumber.setText(mainNumber);
-                            subNumber = "";
-                            textSubNumber.setText(subNumber);
+                            mainNumber = String.valueOf(calculator.plus(mainNum, subNum));
+                            updateMainNumber();
+                            resetSubNumber();
                             break;
                         case 1:
-                            if(Integer.parseInt(mainNumber) > Integer.parseInt(subNumber)){
-                                mainNumber = String.valueOf(calculator.minus(Integer.parseInt(mainNumber), Integer.parseInt(subNumber)));
+                            if(mainNum > subNum){
+                                mainNumber = String.valueOf(calculator.minus(mainNum, subNum));
                             }else{
-                                mainNumber = String.valueOf(calculator.minus(Integer.parseInt(subNumber), Integer.parseInt(mainNumber)));
+                                mainNumber = String.valueOf(calculator.minus(subNum, mainNum));
                             }
-                            textNumber.setText(mainNumber);
-                            subNumber = "";
-                            textSubNumber.setText(subNumber);
+                            updateMainNumber();
+                            resetSubNumber();
                             break;
                         case 2:
-                            mainNumber = String.valueOf(calculator.multiple(Integer.parseInt(mainNumber), Integer.parseInt(subNumber)));
-                            textNumber.setText(mainNumber);
-                            subNumber = "";
-                            textSubNumber.setText(subNumber);
+                            mainNumber = String.valueOf(calculator.multiple(mainNum, subNum));
+                            updateMainNumber();
+                            resetSubNumber();
                             break;
                         case 3:
-                            if(Integer.parseInt(mainNumber) > Integer.parseInt(subNumber)){
-                                mainNumber = String.valueOf(calculator.divide(Integer.parseInt(mainNumber), Integer.parseInt(subNumber)));
+                            if(mainNum > subNum){
+                                mainNumber = String.valueOf(calculator.divide(mainNum, subNum));
                             }else{
-                                mainNumber = String.valueOf(calculator.divide(Integer.parseInt(subNumber), Integer.parseInt(mainNumber)));
+                                mainNumber = String.valueOf(calculator.divide(subNum, mainNum));
                             }
-                            textNumber.setText(mainNumber);
-                            subNumber = "";
-                            textSubNumber.setText(subNumber);
+                            updateMainNumber();
+                            resetSubNumber();
                             break;
                     }
                     break;
                 case R.id.buttonC:
-                    mainNumber = "";
-                    subNumber = "";
-                    textNumber.setText("0");
-                    textSubNumber.setText(subNumber);
+                    resetMainNumber();
+                    resetSubNumber();
                     break;
 
             }
